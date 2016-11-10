@@ -38,6 +38,11 @@ namespace StockControl.Model.Model
         {
             KeyValuePair<Product, int> productRemove = ListCart.Where(p => p.Key.Name.Equals(product.Name)).FirstOrDefault();
             ListCart.Remove(productRemove);
-        }       
+        } 
+        
+        public void Clear()
+        {
+            this.ListCart.Clear();
+        }      
     }
 }

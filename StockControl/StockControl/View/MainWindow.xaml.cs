@@ -26,9 +26,11 @@ namespace StockControl
         public MainWindow()
         {
             InitializeComponent();
+
             this.DataContext = new ProductViewModel();
-            //this.DataContext = new Cart();
+                      
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             this.initialize();
             
         }

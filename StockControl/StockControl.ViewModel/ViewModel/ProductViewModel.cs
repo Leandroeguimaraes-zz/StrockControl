@@ -4,17 +4,19 @@ using StockControl.Model.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace StockControl.ViewModel.ViewModel
 {
-    public class ProductViewModel
+    public class ProductViewModel 
     {
 
         Cart cart;
 
+      
         public ProductViewModel()
         {
             cart = new Cart();
@@ -24,7 +26,7 @@ namespace StockControl.ViewModel.ViewModel
         public Product Product { get; set; }      
         public int Quantity { get; set; }
 
-        KeyValuePair<Product,int> ProductSelected { get; set; }
+        public KeyValuePair<Product,int> ProductSelected { get; set; }
 
         public ObservableDictionary<Product, int> ListCart {
             get
@@ -54,10 +56,22 @@ namespace StockControl.ViewModel.ViewModel
             {
                 return new RelayCommand(() =>
                 {
+                   
                     this.cart.DeleteItem(ProductSelected.Key);
                 });
             }
         }
+
+        public RelayCommand ClearCommand {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    this.cart.Clear();
+                });
+            }
+        }
+
 
         
     }
