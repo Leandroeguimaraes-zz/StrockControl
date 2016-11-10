@@ -1,0 +1,35 @@
+﻿<Window x:Class="StockControl.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StockControl"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450.106" Width="519.068">
+    <Grid Margin="0,47,0,0">
+        <GroupBox x:Name="groupBox" Header="Choose a Product" HorizontalAlignment="Left" Margin="16,17,0,0" VerticalAlignment="Top" Height="225" Width="206"/>
+        <GroupBox x:Name="groupBox1" Header="Cart&#xD;&#xA;" HorizontalAlignment="Left" Margin="239,10,0,0" VerticalAlignment="Top" Height="232" Width="241">
+            <ListBox x:Name="listBox" ItemsSource="{Binding ListCart, Mode=TwoWay}" SelectedItem="{Binding Path=ProductSelected,Mode=TwoWay}" HorizontalAlignment="Left" Height="162" Margin="10,0,0,0" VerticalAlignment="Top" Width="216">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Margin="20,0,0,0" Text="{Binding}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+        <GroupBox x:Name="groupBox2" Header="Buy Product" HorizontalAlignment="Left" Margin="16,247,0,0" VerticalAlignment="Top" Height="62" Width="464"/>
+        <Label x:Name="uxLblProduct" Content="Product:" HorizontalAlignment="Left" Margin="16,41,0,0" VerticalAlignment="Top" Width="196"/>
+        <TextBox x:Name="uxTbxtQuantity" Text="{Binding Path=Quantity,Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="19,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" />
+        <Label x:Name="uxLblQuantity" Content="Quantity:" HorizontalAlignment="Left" Margin="19,100,0,0" VerticalAlignment="Top" Width="193"/>
+        <ComboBox x:Name="uxCbbxProduct" DisplayMemberPath="Name" ItemsSource="{Binding Path=Product}" SelectedValue="{Binding Path=Product}" HorizontalAlignment="Left" Margin="19,72,0,0" VerticalAlignment="Top" Width="196" />
+        <Button x:Name="uxBtnDelete" Content="Delete" Command="{Binding Path=DeleteItemCommand}" HorizontalAlignment="Left" Margin="366,208,0,0" VerticalAlignment="Top" Width="101" Height="27"/>
+        <Button x:Name="uxBtnClear" Content="Clear" HorizontalAlignment="Left" Margin="257,208,0,0" VerticalAlignment="Top" Width="104" Height="27"/>
+        <Button x:Name="uxBtnBuyProducts" Content="Buy Products" HorizontalAlignment="Left" Margin="33,269,0,0" VerticalAlignment="Top" Width="434" RenderTransformOrigin="0.431,1.254" Height="30"/>
+        <Button x:Name="uxBtnViewList" Content="View List" HorizontalAlignment="Left" Margin="26,208,0,0" VerticalAlignment="Top" Width="96" Height="27"/>
+        <Button x:Name="uxBtnSendToCart" Command="{Binding Path=SendToCartCommand}" Content="Send to cart" HorizontalAlignment="Left" Margin="127,208,0,0" VerticalAlignment="Top" Width="85" Height="27"/>
+        <Label x:Name="label"  Content="{Binding Path=Product.Name}" HorizontalAlignment="Left" Margin="33,164,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1" HorizontalAlignment="Left" Margin="95,341,0,0" VerticalAlignment="Top"/>
+       
+    </Grid>
+    
+</Window>
