@@ -10,17 +10,26 @@ namespace StockControl.Model.Model
 {
     public class Cart
     {
+        //-------------Properties------------|
         public ObservableDictionary<Product, int> ListCart { get; set; }
 
+        //------------Constructor------------|
         public Cart()
         {           
             this.ListCart = new ObservableDictionary<Product, int>();
         }
+
+        //|-------------Methods--------------|
+
+        /// <summary>       
+        /// Adds the product and quantity to the cart. If the product already exists, it is removed and added to the updated value.
+        /// </summary>
+        /// <param name="product"> Parameter product requires a 'Product' argument</param>
+        /// /// <param name="quantity"> Parameter quantity requires an 'int' argument</param>        
         public void ReceiveProduct(Product product, int quantity)
         {
             if (ListCart.ContainsKey(product))
-            {
-                //KeyValuePair<Product, int> productOld = ListCart.Where(d => d.Key.Name == product.Name).FirstOrDefault();
+            {               
                 KeyValuePair<Product, int> productOld = ListCart.Where(d => d.Key.Name.Equals(product.Name)).FirstOrDefault();
                 int total = productOld.Value + quantity;
                 ListCart.Remove(productOld);
@@ -33,16 +42,39 @@ namespace StockControl.Model.Model
             }
        
         }
-        
-        public void DeleteItem(Product product)
+
+        /// <summary>
+        /// Show a list of products purchased in a new view
+        /// </summary>       
+        public void ShowProductsPurchased()
+        {
+
+        }
+
+        /// <summary>
+        /// The product selected in the cart is deleted.
+        /// </summary>
+        /// <param name="product"> Parameter product requires a 'Product' argument</param>                
+        public void DeleteProductSelected(Product product)
         {
             KeyValuePair<Product, int> productRemove = ListCart.Where(p => p.Key.Name.Equals(product.Name)).FirstOrDefault();
             ListCart.Remove(productRemove);
-        } 
-        
+        }
+
+        /// <summary>
+        /// Clean the entire product list  
+        /// </summary>              
         public void Clear()
         {
             this.ListCart.Clear();
+        }
+        /// <summary>
+        /// All products in the cart are saved and updated in the database
+        /// </summary>        
+        public void BuyProducts()
+        {
+            //TODO: Salvar e atulaizar no Dao.
+            //CartDao.save()
         }      
     }
 }

@@ -13,16 +13,23 @@ namespace StockControl.ViewModel.ViewModel
 {
     public class ProductViewModel 
     {
+        //---------Variables--------|
 
-        Cart cart;
-
+        private Cart cart;
       
+
+
+        //--------Constructor--------|
+
         public ProductViewModel()
         {
             cart = new Cart();
             this.ProductSelected = new KeyValuePair<Product, int>();
               
         }
+
+        //---------Properties----------|
+
         public Product Product { get; set; }      
         public int Quantity { get; set; }
 
@@ -39,6 +46,12 @@ namespace StockControl.ViewModel.ViewModel
             }
         }
 
+        //|----------Commands----------|
+
+        /// <summary>
+        ///  Sends the product and quantity to the cart
+        /// </summary>
+        /// <returns>The method returns a RelayCommand</returns>           
         public RelayCommand SendToCartCommand
         {
             get
@@ -50,18 +63,45 @@ namespace StockControl.ViewModel.ViewModel
                     });
             }
         }
-        public RelayCommand DeleteItemCommand
+
+
+        /// <summary>
+        /// Sends to the  model to show a list of products purchased     
+        /// </summary>       
+        /// <returns>The method returns a RelayCommand</returns>
+        public RelayCommand ViewList
+        {
+            get
+            {
+                return new RelayCommand(() => 
+                {
+                    this.cart.ShowProductsPurchased();
+                });
+            }
+        }
+
+
+        /// <summary>
+        /// Sends to the  model to delete a selected product in the cart 
+        /// </summary>       
+        /// <returns>The method returns a RelayCommand</returns>
+        public RelayCommand DeleteProductCommand
         {
             get
             {
                 return new RelayCommand(() =>
                 {
                    
-                    this.cart.DeleteItem(ProductSelected.Key);
+                    this.cart.DeleteProductSelected(ProductSelected.Key);
                 });
             }
         }
 
+
+        /// <summary>
+        /// Sends to the  model to clean the entire product list        
+        /// </summary>       
+        /// <returns>The method returns a RelayCommand</returns>
         public RelayCommand ClearCommand {
             get
             {
@@ -73,6 +113,20 @@ namespace StockControl.ViewModel.ViewModel
         }
 
 
+        /// <summary>
+        /// Sends to the  model to buy all products added to the cart        
+        /// </summary>       
+        /// <returns>The method returns a RelayCommand</returns>
+        public RelayCommand BuyCommand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    this.cart.BuyProducts();
+                });
+            }
+        }
         
     }
 }

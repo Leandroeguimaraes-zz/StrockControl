@@ -23,7 +23,7 @@
         <TextBox x:Name="uxTbxtQuantity" Text="{Binding Path=Quantity,Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="19,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" />
         <Label x:Name="uxLblQuantity" Content="Quantity:" HorizontalAlignment="Left" Margin="19,100,0,0" VerticalAlignment="Top" Width="193"/>
         <ComboBox x:Name="uxCbbxProduct" DisplayMemberPath="Name" ItemsSource="{Binding Path=Product}" SelectedValue="{Binding Path=Product}" HorizontalAlignment="Left" Margin="19,72,0,0" VerticalAlignment="Top" Width="196" />
-        <Button x:Name="uxBtnDelete" Content="Delete" Command="{Binding Path=DeleteItemCommand}" HorizontalAlignment="Left" Margin="366,208,0,0" VerticalAlignment="Top" Width="101" Height="27"/>
+        <Button x:Name="uxBtnDelete" Content="Delete" Command="{Binding Path=DeleteProductCommand}" HorizontalAlignment="Left" Margin="366,208,0,0" VerticalAlignment="Top" Width="101" Height="27"/>
         <Button x:Name="uxBtnClear" Content="Clear" Command ="{Binding Path=ClearCommand}" HorizontalAlignment="Left" Margin="257,208,0,0" VerticalAlignment="Top" Width="104" Height="27"/>
         <Button x:Name="uxBtnBuyProducts" Content="Buy Products" HorizontalAlignment="Left" Margin="33,269,0,0" VerticalAlignment="Top" Width="434" RenderTransformOrigin="0.431,1.254" Height="30"/>
         <Button x:Name="uxBtnViewList" Content="View List" Command="{Binding Path=ViewListCommand}" HorizontalAlignment="Left" Margin="26,208,0,0" VerticalAlignment="Top" Width="96" Height="27"/>
