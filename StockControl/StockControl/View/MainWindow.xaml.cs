@@ -45,7 +45,6 @@ namespace StockControl
             this.uxCbbxProduct.Items.Add(new Product("Product2", 30));
             this.uxCbbxProduct.Items.Add(new Product("Product3", 40));
             this.uxCbbxProduct.Items.Add(new Product("Product4", 50));
-
          
         }
 

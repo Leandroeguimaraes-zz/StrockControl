@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace StockControl.Model.Domain
 {
-    public class Stock
+    public class Sales
     {
-        public int StockId { get; set; }
-        public Product Product { get; set; }
-
-        public int Quantity { get; set; }
+        public int SalesId { get; set; }
+        public Dictionary<Product,int> ProductsSold { get; set; }
     }
 }

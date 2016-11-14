@@ -10,16 +10,16 @@ namespace StockControl.Model.Model
 {
     public class Cart
     {
-        //-------------Properties------------|
+        //|-------------PROPERTIES------------|
         public ObservableDictionary<Product, int> ListCart { get; set; }
 
-        //------------Constructor------------|
+        //|------------CONSTRUCTOR------------|
         public Cart()
         {           
             this.ListCart = new ObservableDictionary<Product, int>();
         }
 
-        //|-------------Methods--------------|
+        //|-------------METHODS--------------|
 
         /// <summary>       
         /// Adds the product and quantity to the cart. If the product already exists, it is removed and added to the updated value.
@@ -48,7 +48,7 @@ namespace StockControl.Model.Model
         /// </summary>       
         public void ShowProductsPurchased()
         {
-
+            //TODO: criar tela com as compras realizadas
         }
 
         /// <summary>
@@ -68,6 +68,7 @@ namespace StockControl.Model.Model
         {
             this.ListCart.Clear();
         }
+
         /// <summary>
         /// All products in the cart are saved and updated in the database
         /// </summary>        

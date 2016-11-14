@@ -25,7 +25,7 @@
         <ComboBox x:Name="uxCbbxProduct" DisplayMemberPath="Name" ItemsSource="{Binding Path=Product}" SelectedValue="{Binding Path=Product}" HorizontalAlignment="Left" Margin="19,72,0,0" VerticalAlignment="Top" Width="196" />
         <Button x:Name="uxBtnDelete" Content="Delete" Command="{Binding Path=DeleteProductCommand}" HorizontalAlignment="Left" Margin="366,208,0,0" VerticalAlignment="Top" Width="101" Height="27"/>
         <Button x:Name="uxBtnClear" Content="Clear" Command ="{Binding Path=ClearCommand}" HorizontalAlignment="Left" Margin="257,208,0,0" VerticalAlignment="Top" Width="104" Height="27"/>
-        <Button x:Name="uxBtnBuyProducts" Content="Buy Products" HorizontalAlignment="Left" Margin="33,269,0,0" VerticalAlignment="Top" Width="434" RenderTransformOrigin="0.431,1.254" Height="30"/>
+        <Button x:Name="uxBtnBuyProducts" Content="Buy Products" Command="{Binding Path=BuyCommand}" HorizontalAlignment="Left" Margin="33,269,0,0" VerticalAlignment="Top" Width="434" RenderTransformOrigin="0.431,1.254" Height="30"/>
         <Button x:Name="uxBtnViewList" Content="View List" Command="{Binding Path=ViewListCommand}" HorizontalAlignment="Left" Margin="26,208,0,0" VerticalAlignment="Top" Width="96" Height="27"/>
         <Button x:Name="uxBtnSendToCart" Command="{Binding Path=SendToCartCommand}" Content="Send to cart" HorizontalAlignment="Left" Margin="127,208,0,0" VerticalAlignment="Top" Width="85" Height="27"/>
         <Label x:Name="label"  Content="{Binding Path=Product.Name}" HorizontalAlignment="Left" Margin="33,164,0,0" VerticalAlignment="Top"/>

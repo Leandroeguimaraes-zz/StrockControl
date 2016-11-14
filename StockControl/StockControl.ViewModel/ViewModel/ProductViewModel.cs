@@ -13,13 +13,13 @@ namespace StockControl.ViewModel.ViewModel
 {
     public class ProductViewModel 
     {
-        //---------Variables--------|
+        //|---------VARIABLES--------|
 
         private Cart cart;
       
 
 
-        //--------Constructor--------|
+        //|--------CONSTRUCTOR--------|
 
         public ProductViewModel()
         {
@@ -28,7 +28,7 @@ namespace StockControl.ViewModel.ViewModel
               
         }
 
-        //---------Properties----------|
+        //|---------PROPERTIES----------|
 
         public Product Product { get; set; }      
         public int Quantity { get; set; }
@@ -46,7 +46,7 @@ namespace StockControl.ViewModel.ViewModel
             }
         }
 
-        //|----------Commands----------|
+        //|----------COMMANDS----------|
 
         /// <summary>
         ///  Sends the product and quantity to the cart
@@ -64,12 +64,11 @@ namespace StockControl.ViewModel.ViewModel
             }
         }
 
-
         /// <summary>
         /// Sends to the  model to show a list of products purchased     
         /// </summary>       
         /// <returns>The method returns a RelayCommand</returns>
-        public RelayCommand ViewList
+        public RelayCommand ViewListCommand
         {
             get
             {
@@ -79,7 +78,6 @@ namespace StockControl.ViewModel.ViewModel
                 });
             }
         }
-
 
         /// <summary>
         /// Sends to the  model to delete a selected product in the cart 
@@ -97,7 +95,6 @@ namespace StockControl.ViewModel.ViewModel
             }
         }
 
-
         /// <summary>
         /// Sends to the  model to clean the entire product list        
         /// </summary>       
@@ -111,7 +108,6 @@ namespace StockControl.ViewModel.ViewModel
                 });
             }
         }
-
 
         /// <summary>
         /// Sends to the  model to buy all products added to the cart        
@@ -127,6 +123,5 @@ namespace StockControl.ViewModel.ViewModel
                 });
             }
         }
-        
     }
 }
