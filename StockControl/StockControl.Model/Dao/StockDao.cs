@@ -31,6 +31,20 @@ namespace StockControl.Model.Dao
                 Quantity = item.Quantity
             };
         }
+        public void Update(Stock product)
+        {
+            Stock productUpdated = this.SubstractsQuantityOfAProduct(product);
+
+            Modify(productUpdated);
+        }
+
+        private Stock SubstractsQuantityOfAProduct(Stock product)
+        {
+            Stock productFromStock = FindById(product.StockId);
+            productFromStock.Quantity -= product.Quantity;
+
+            return productFromStock;
+        }
        
     }
 }

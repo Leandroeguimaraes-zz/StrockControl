@@ -11,5 +11,11 @@ namespace StockControl.Model.Domain
         public int StockId { get; set; }
         public Product Product { get; set; }
         public int Quantity { get; set; }
+
+        public Stock( Product product, int quantity)
+        {           
+            this.Product = product;
+            this.Quantity = quantity;
+        }
     }
 }

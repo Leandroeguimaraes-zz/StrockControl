@@ -11,8 +11,9 @@ namespace StockControl.Model.Model
 {
     public class Cart
     {
-        private ProductDao productDao = new ProductDao();
-        private SalesDao salesDao = new SalesDao();
+        private ProductDao productDao;
+        private SalesDao salesDao;
+        private StockDao stockDao;
 
         //|-------------PROPERTIES------------|
         public ObservableDictionary<Product, int> ListCart { get; set; }
@@ -20,7 +21,10 @@ namespace StockControl.Model.Model
 
         //|------------CONSTRUCTOR------------|
         public Cart()
-        {           
+        {
+            productDao = new ProductDao();
+            salesDao = new SalesDao();
+            this.stockDao = new StockDao();
             this.ListCart = new ObservableDictionary<Product, int>();
         }
 
@@ -83,12 +87,16 @@ namespace StockControl.Model.Model
         /// All products in the cart are saved and updated in the database
         /// </summary>        
         public void BuyProducts()
-        {
-            //TODO: Atualizar valor no Stock
-          
+        {                                
             Sales sales = new Sales();
             sales.ProductsSold = this.ListCart;
-            this.salesDao.InsertOrUpdate(sales);           
+            this.salesDao.InsertOrUpdate(sales);
+
+            foreach(KeyValuePair<Product,int> p in sales.ProductsSold)
+            {
+                this.stockDao.Update(new Stock(p.Key,p.Value));
+            }
+            
         }      
     }
 }

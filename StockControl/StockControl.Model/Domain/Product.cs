@@ -13,6 +13,12 @@ namespace StockControl.Model.Domain
             this.Name = name;
             this.Price = price;
         }
+        public Product(int productId,string name, double price)
+        {
+            this.ProductId = productId;
+            this.Name = name;
+            this.Price = price;
+        }
         public Product()
         {
 
