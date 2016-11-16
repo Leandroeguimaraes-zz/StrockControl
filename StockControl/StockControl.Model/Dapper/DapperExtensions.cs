@@ -21,15 +21,6 @@ namespace StockControl.Model.Dao
         {
             SqlMapper.Execute(cnn, DynamicQuery.GetUpdateQuery(tableName, param), param);
         }
-
-        //public static int Execute(this IDbConnection cnn, CommandDefinition command);
-        ////
-        //// Summary:
-        ////     Execute parameterized SQL
-        ////
-        //// Returns:
-        ////     Number of rows affected
-        //public static int Execute(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?));
-
+       
     }
 }

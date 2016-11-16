@@ -16,6 +16,12 @@ namespace StockControl.Model.Dao
             this.stock = GetFirstOrDefault();
         }
 
+        /// <summary>
+        /// Mapping the object to the insert/update columns.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>The parameters with values.</returns>
+        /// <remarks>In the default case, we take the object as is with no custom mapping.</remarks>
         internal override object Mapping(Stock item)
         {
             return new
@@ -25,81 +31,6 @@ namespace StockControl.Model.Dao
                 Quantity = item.Quantity
             };
         }
-        public void SetProductId(int id)
-        {
-            if (this.stock == null)
-            {
-                this.stock = new Stock();
-                this.stock.Product.ProductId = id;
-                Add(this.stock);
-            }
-            else
-            {
-                this.stock.Product.ProductId = id;
-                Modify(this.stock);
-            }
-        }
-        public int GetProductId()
-        {
-            if (this.stock == null)
-            {
-                return -1;
-            }
-            else
-            {
-                return this.stock.Product.ProductId;
-            }
-        }
-        public void SetName(string name)
-        {
-            if (this.stock == null)
-            {
-                this.stock = new Stock();
-                this.stock.Product.Name = name;
-                Add(this.stock);
-            }
-            else
-            {
-                this.stock.Product.Name = name;
-                Modify(this.stock);
-            }
-        }
-        public string GetName()
-        {
-            if(this.stock == null)
-            {
-                return null;
-            }
-            else
-            {
-                return this.stock.Product.Name;
-            }
-        }
-        public void SetQuantity(int quantity)
-        {
-            if (this.stock == null)
-            {
-                this.stock = new Stock();
-                this.stock.Quantity = quantity;
-                Add(this.stock);
-            }
-            else
-            {
-                this.stock.Quantity = quantity;
-                Modify(this.stock);
-            }
-        }
-        public double GetQuantity()
-        {
-            if (this.stock == null)
-            {
-                return -1;
-            }
-            else
-            {
-                return this.stock.Quantity;
-            }
-
-        }
+       
     }
 }

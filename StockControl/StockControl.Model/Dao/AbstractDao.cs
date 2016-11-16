@@ -27,13 +27,11 @@ namespace StockControl.Model.Dao
         /// </value>
         internal SQLiteConnection Connection
         {
-
             get
             {
                 return new SQLiteConnection(ConfigurationManager.ConnectionStrings["StockBD"].ConnectionString);
             }
         }
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Repository{T}" /> class.         
@@ -53,6 +51,10 @@ namespace StockControl.Model.Dao
         {
             return item;
         }
+        /// <summary>
+        /// 
+        /// </summary>        
+        /// <returns>returns an IEnumerable</returns>
         public virtual IEnumerable<T> FindAll()
         {
             Connection.Open();

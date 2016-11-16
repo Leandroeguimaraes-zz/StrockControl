@@ -84,7 +84,7 @@ namespace StockControl.Model.Model
         /// </summary>        
         public void BuyProducts()
         {
-            //TODO: Salvar e atulaizar no Dao.
+            //TODO: Atualizar valor no Stock
           
             Sales sales = new Sales();
             sales.ProductsSold = this.ListCart;
