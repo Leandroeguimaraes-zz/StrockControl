@@ -8,68 +8,31 @@ using System.Threading.Tasks;
 namespace StockControl.Model.Dao
 {
     public class ProductDao : AbstractDao<Product>
-    {
-        private Product product;
-
+    {    
         internal override dynamic Mapping(Product item)
         {
             return new
-            {
+            {                
                 Name = item.Name,
                 Price = item.Price
             };
         }
-        
-        public void SetName(string name)
+        public IEnumerable<Product> GetProducts()
         {
-            if (this.product == null)
-            {
-                this.product = new Product();
-                this.product.Name = name;
-                Add(this.product);
-            }
-            else
-            {
-                this.product.Name = name;
-                Modify(this.product);
-            }
-        }
-        public string GetName()
+            return this.FindAll();            
+        }        
+
+        public void InsertOrUpdate(Product product)
         {
-            if (this.product == null)
+            if (this.FindById(product.ProductId) == null)
             {
-                return null;
-            }
-            else
-            {
-                return this.product.Name;
-            }
-        }
-        public void SetPrice(double price)
-        {
-            if (this.product == null)
-            {
-                this.product = new Product();
-                this.product.Price = price;
                 Add(product);
             }
             else
             {
-                this.product.Price = price;
-                Modify(this.product);
+                Modify(product);
             }
         }
-        public double GetPrice()
-        {
-            if (this.product == null)
-            {
-                return -1;
-            }
-            else
-            {
-                return this.product.Price;
-            }
-
-        }
+       
     }
 }

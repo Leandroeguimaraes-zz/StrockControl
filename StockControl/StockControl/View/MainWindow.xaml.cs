@@ -31,7 +31,7 @@ namespace StockControl
                       
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            this.initialize();
+            //this.initialize();
             
         }
 

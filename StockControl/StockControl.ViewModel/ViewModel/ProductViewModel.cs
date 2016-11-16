@@ -25,6 +25,7 @@ namespace StockControl.ViewModel.ViewModel
         {
             cart = new Cart();
             this.ProductSelected = new KeyValuePair<Product, int>();
+            this.ProductsAvailables = new List<Product>();
               
         }
 
@@ -33,6 +34,14 @@ namespace StockControl.ViewModel.ViewModel
         public Product Product { get; set; }      
         public int Quantity { get; set; }
 
+        
+
+        public IEnumerable<Product> ProductsAvailables
+        {
+            get { return this.cart.GetProducts(); }
+            set { }
+        }
+        
         public KeyValuePair<Product,int> ProductSelected { get; set; }
 
         public ObservableDictionary<Product, int> ListCart {

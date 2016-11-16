@@ -22,9 +22,9 @@ namespace StockControl.Model.Dao
         public static string GetInsertQuery(string tableName, dynamic item)
         {
             PropertyInfo[] props = item.GetType().GetProperties();
-            string[] columns = props.Select(p => p.Name).Where(s => s.Contains("Id") == false).ToArray();
+            string[] columns = props.Select(p => p.Name).ToArray();
 
-            return string.Format("INSERT INTO {0} ({1}) VALUES (@{2});",
+            return string.Format("INSERT INTO {0} ({1}) VALUES (@{2}); select last_insert_rowid();",
                                  tableName,
                                  string.Join(",", columns),
                                  string.Join(",@", columns));

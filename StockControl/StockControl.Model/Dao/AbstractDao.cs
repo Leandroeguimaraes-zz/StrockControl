@@ -4,10 +4,10 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System;
 using System.Linq.Expressions;
 using Dapper;
 using System.Configuration;
+using System.Collections.ObjectModel;
 
 namespace StockControl.Model.Dao
 {
@@ -30,7 +30,7 @@ namespace StockControl.Model.Dao
 
             get
             {
-                return new SQLiteConnection(ConfigurationManager.ConnectionStrings["StockDB"].ConnectionString);
+                return new SQLiteConnection(ConfigurationManager.ConnectionStrings["StockBD"].ConnectionString);
             }
         }
 
@@ -51,6 +51,24 @@ namespace StockControl.Model.Dao
         /// <remarks>In the default case, we take the object as is with no custom mapping.</remarks>
         internal virtual dynamic Mapping(T item)
         {
+            return item;
+        }
+        public virtual IEnumerable<T> FindAll()
+        {
+            Connection.Open();
+            return Connection.Query<T>("SELECT * FROM " + tableName);
+        }
+        /// <summary>
+        /// Finds by First or Default.
+        /// </summary>
+        /// <returns></returns>
+        public virtual T FindById(int id)
+        {
+            T item = default(T);
+
+            Connection.Open();
+            item = Connection.Query<T>("SELECT * FROM " + tableName + " WHERE " + tableName + "Id="+ id.ToString()).SingleOrDefault();
+
             return item;
         }
         /// <summary>

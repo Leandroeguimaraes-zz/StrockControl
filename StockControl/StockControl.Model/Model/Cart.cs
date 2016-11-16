@@ -1,4 +1,5 @@
-﻿using StockControl.Model.Domain;
+﻿using StockControl.Model.Dao;
+using StockControl.Model.Domain;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,8 +11,12 @@ namespace StockControl.Model.Model
 {
     public class Cart
     {
+        private ProductDao productDao = new ProductDao();
+        private SalesDao salesDao = new SalesDao();
+
         //|-------------PROPERTIES------------|
         public ObservableDictionary<Product, int> ListCart { get; set; }
+
 
         //|------------CONSTRUCTOR------------|
         public Cart()
@@ -21,6 +26,10 @@ namespace StockControl.Model.Model
 
         //|-------------METHODS--------------|
 
+        public IEnumerable<Product> GetProducts()
+        {
+            return this.productDao.GetProducts();
+        }
         /// <summary>       
         /// Adds the product and quantity to the cart. If the product already exists, it is removed and added to the updated value.
         /// </summary>
@@ -38,17 +47,18 @@ namespace StockControl.Model.Model
 
             else
             {
-                ListCart.Add(product, quantity);
+                ListCart.Add(product, quantity);                
             }
        
         }
 
         /// <summary>
-        /// Show a list of products purchased in a new view
+        /// Show a list of products purchased in a new view or in a ListView
         /// </summary>       
         public void ShowProductsPurchased()
         {
             //TODO: criar tela com as compras realizadas
+            
         }
 
         /// <summary>
@@ -75,7 +85,10 @@ namespace StockControl.Model.Model
         public void BuyProducts()
         {
             //TODO: Salvar e atulaizar no Dao.
-            //CartDao.save()
+          
+            Sales sales = new Sales();
+            sales.ProductsSold = this.ListCart;
+            this.salesDao.InsertOrUpdate(sales);           
         }      
     }
 }

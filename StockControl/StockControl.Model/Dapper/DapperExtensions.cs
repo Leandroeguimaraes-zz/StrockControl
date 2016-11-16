@@ -12,14 +12,24 @@ namespace StockControl.Model.Dao
     {
         public static int Insert<T>(this IDbConnection cnn, string tableName, dynamic param)
         {
-            int result = SqlMapper.Query<int>(cnn, DynamicQuery.GetInsertQuery(tableName, param), param);
-            return result;
+            List<long> result = SqlMapper.Query<long>(cnn, DynamicQuery.GetInsertQuery(tableName, param), param);
+
+            return (int)result.FirstOrDefault();
         }
 
         public static void Modify(this IDbConnection cnn, string tableName, dynamic param)
         {
             SqlMapper.Execute(cnn, DynamicQuery.GetUpdateQuery(tableName, param), param);
         }
+
+        //public static int Execute(this IDbConnection cnn, CommandDefinition command);
+        ////
+        //// Summary:
+        ////     Execute parameterized SQL
+        ////
+        //// Returns:
+        ////     Number of rows affected
+        //public static int Execute(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = default(int?), CommandType? commandType = default(CommandType?));
 
     }
 }
