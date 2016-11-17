@@ -34,18 +34,30 @@ namespace StockControl.Model.Dao
             };
         }
 
-        private Product GetProduct(int ProdutoId)
+        /// <summary>
+        /// Gets a product by Id
+        /// </summary>
+        /// <param name="ProductId">int.</param>
+        /// <returns>Returns a product by Id determined.</returns>        
+        private Product GetProduct(int productId)
         {
             ProductDao produtc = new ProductDao();
-            return produtc.FindById(ProdutoId);
+            return produtc.FindById(productId);
         }
-
+        /// <summary>
+        /// Gets the quantity of a product by Id
+        /// </summary>
+        /// <param name="id">id.</param>
+        /// <returns>Returns the quantity of a product .</returns>        
         public int GetQuantityOfAProduct(int id)
         {
             Stock product = this.FindById(id);
             return product.Quantity;
         }
-
+        /// <summary>
+        /// Updates a product in the stock
+        /// </summary>
+        /// <param name="product">Stock.</param>            
         public void Update(Stock product)
         {
             try
@@ -61,7 +73,11 @@ namespace StockControl.Model.Dao
             }
            
         }
-
+        /// <summary>
+        /// Substracts the quantity of a product in the stock
+        /// </summary>
+        /// <param name="product">Stock.</param>
+        /// <returns>Returns the product with its updated quantity .</returns>        
         private Stock SubstractsQuantityOfAProduct(Stock product)
         {
             Stock productFromStock = Find(d => d.ProductId == product.Product.ProductId).FirstOrDefault();

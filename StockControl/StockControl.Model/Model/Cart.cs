@@ -72,7 +72,7 @@ namespace StockControl.Model.Model
         }
 
         /// <summary>
-        /// Show a list of products purchased in a new view or in a ListView
+        /// Shows a list of products purchased in a new view or in a ListView
         /// </summary>       
         public void ShowProductsPurchased()
         {

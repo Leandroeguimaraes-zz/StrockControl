@@ -48,7 +48,7 @@ namespace StockControl.Model.Dao
         /// <summary>
         /// Gets all products sold from Database
         /// </summary>        
-        /// <returns>Returns an IEnumerable</returns>
+        /// <returns>Returns Returns all products sold from Sales table</returns>
         public IEnumerable<Sales> GetProductsSold()
         {
             return this.FindAll();

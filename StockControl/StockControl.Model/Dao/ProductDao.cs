@@ -26,7 +26,7 @@ namespace StockControl.Model.Dao
         /// <summary>
         /// Gets the products from DataBase and fill the comboBox
         /// </summary>        
-        /// <returns>returns an IEnumerable</returns>
+        /// <returns>Returns all products from product table</returns>
         public IEnumerable<Product> GetProducts()
         {
             try

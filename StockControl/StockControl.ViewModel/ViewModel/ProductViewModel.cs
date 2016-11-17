@@ -12,9 +12,7 @@ using System.Threading.Tasks;
 namespace StockControl.ViewModel.ViewModel
 {
     public class ProductViewModel 
-    {        
-        public Cart Cart { get; set; }
-
+    {               
         //|--------CONSTRUCTOR--------|
 
         public ProductViewModel()
@@ -26,6 +24,7 @@ namespace StockControl.ViewModel.ViewModel
 
         //|---------PROPERTIES----------|
 
+        public Cart Cart { get; set; }
         public Product Product { get; set; }      
         public int Quantity { get; set; }
         
@@ -39,7 +38,6 @@ namespace StockControl.ViewModel.ViewModel
         }
         
         public KeyValuePair<Product,int> ProductSelected { get; set; }
-
        
         public ObservableDictionary<Product, int> ListCart {
             get
