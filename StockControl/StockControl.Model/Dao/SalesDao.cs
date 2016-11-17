@@ -29,25 +29,27 @@ namespace StockControl.Model.Dao
         /// Adds or updates a product to the DataBase.
         /// </summary>
         /// <param name="product">The product.</param>      
-        public void InsertOrUpdate(Sales product)
+        public void Insert(Sales product)
         {
-            foreach (KeyValuePair<Product, int> p in product.ProductsSold)
+            try
             {
-                if (this.FindById(p.Key.ProductId) == null)
+                foreach (KeyValuePair<Product, int> p in product.ProductsSold)
                 {
                     Add(product);
                 }
-                else
-                {
-                    Modify(product);
-                }
             }
+            catch (Exception ex)
+            {
+
+                throw new System.ArgumentException("Deu ruim - Produto não foi adicionado a lista de comprados");
+            }
+            
         }
         /// <summary>
         /// Gets all products sold from Database
         /// </summary>        
         /// <returns>Returns an IEnumerable</returns>
-        public IEnumerable<Sales>  GetProductsSold()
+        public IEnumerable<Sales> GetProductsSold()
         {
             return this.FindAll();
         }

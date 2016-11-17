@@ -11,5 +11,12 @@ namespace StockControl.Model.Domain
     {
         public int SalesId { get; set; }
         public ObservableDictionary<Product,int> ProductsSold { get; set; }
+
+        //Dapper nao mapeia o objeto ProductsSold, então é necessario criar a propriedade(s) desejada(s) (Name e Quantity)
+        public string Name { get; set; }
+
+        public int Quantity { get; set; }
     }
+
+
 }

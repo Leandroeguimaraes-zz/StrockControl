@@ -29,7 +29,16 @@ namespace StockControl.Model.Dao
         /// <returns>returns an IEnumerable</returns>
         public IEnumerable<Product> GetProducts()
         {
-            return this.FindAll();            
+            try
+            {
+                return this.FindAll();
+            }
+            catch (Exception)
+            {
+
+                throw new System.ArgumentException("Não foi possível carregar os produtos no comboBox");
+            }
+                     
         }
         /// <summary>
         /// Adds or updates a product to the DataBase

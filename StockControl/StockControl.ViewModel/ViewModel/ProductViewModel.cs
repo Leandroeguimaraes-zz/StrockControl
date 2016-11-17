@@ -12,53 +12,61 @@ using System.Threading.Tasks;
 namespace StockControl.ViewModel.ViewModel
 {
     public class ProductViewModel 
-    {
-        //|---------VARIABLES--------|
-
-        private Cart cart;
-      
-
+    {        
+        public Cart Cart { get; set; }
 
         //|--------CONSTRUCTOR--------|
 
         public ProductViewModel()
         {
-            cart = new Cart();
+            Cart = new Cart();
             this.ProductSelected = new KeyValuePair<Product, int>();
-            this.ProductsAvailables = new List<Product>();
-              
+            this.ProductsAvailables = new List<Product>();              
         }
 
         //|---------PROPERTIES----------|
 
         public Product Product { get; set; }      
         public int Quantity { get; set; }
-
         
-
         public IEnumerable<Product> ProductsAvailables
         {
-            get { return this.cart.GetProducts(); }
+            get
+            {
+                return this.Cart.GetProducts();
+            }
             set { }
         }
         
         public KeyValuePair<Product,int> ProductSelected { get; set; }
 
+       
         public ObservableDictionary<Product, int> ListCart {
             get
             {
-                return this.cart.ListCart;
+                return this.Cart.ListCart;
             }
             set
             {
-                this.cart.ListCart = value;                
+                this.Cart.ListCart = value;                
+            }
+        }
+
+        public ObservableCollection<Sales> ProductsSold {
+            get
+            {
+                return this.Cart.ProductSold;
+            }
+            set
+            {
+                this.Cart.ProductSold = value;
             }
         }
 
         //|----------COMMANDS----------|
 
         /// <summary>
-        ///  Sends the product and quantity to the cart
+        ///  Sends the product and quantity to the Cart
         /// </summary>
         /// <returns>The method returns a RelayCommand</returns>           
         public RelayCommand SendToCartCommand
@@ -68,7 +76,7 @@ namespace StockControl.ViewModel.ViewModel
                 return new RelayCommand(
                     () =>
                     {                                               
-                        this.cart.ReceiveProduct(Product, Quantity);
+                        this.Cart.ReceiveProduct(Product, Quantity);
                     });
             }
         }
@@ -83,13 +91,13 @@ namespace StockControl.ViewModel.ViewModel
             {
                 return new RelayCommand(() => 
                 {
-                    this.cart.ShowProductsPurchased();
+                    this.Cart.ShowProductsPurchased();
                 });
             }
         }
 
         /// <summary>
-        /// Sends to the  model to delete a selected product in the cart 
+        /// Sends to the  model to delete a selected product in the Cart 
         /// </summary>       
         /// <returns>The method returns a RelayCommand</returns>
         public RelayCommand DeleteProductCommand
@@ -97,9 +105,8 @@ namespace StockControl.ViewModel.ViewModel
             get
             {
                 return new RelayCommand(() =>
-                {
-                   
-                    this.cart.DeleteProductSelected(ProductSelected.Key);
+                {                   
+                    this.Cart.DeleteProductSelected(ProductSelected.Key);
                 });
             }
         }
@@ -113,13 +120,13 @@ namespace StockControl.ViewModel.ViewModel
             {
                 return new RelayCommand(() =>
                 {
-                    this.cart.Clear();
+                    this.Cart.Clear();
                 });
             }
         }
 
         /// <summary>
-        /// Sends to the  model to buy all products added to the cart        
+        /// Sends to the  model to buy all products added to the Cart        
         /// </summary>       
         /// <returns>The method returns a RelayCommand</returns>
         public RelayCommand BuyCommand
@@ -128,7 +135,7 @@ namespace StockControl.ViewModel.ViewModel
             {
                 return new RelayCommand(() =>
                 {
-                    this.cart.BuyProducts();
+                    this.Cart.BuyProducts();
                 });
             }
         }

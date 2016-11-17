@@ -6,33 +6,37 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace StockControl.Model.Model
 {
     public class Cart
-    {
-        private ProductDao productDao;
-        private SalesDao salesDao;
-        private StockDao stockDao;
+    {       
+        private ProductDao ProductDao { get; set; }
+        private SalesDao SalesDao { get; set; }
+        private StockDao StockDao { get; set; }
+
 
         //|-------------PROPERTIES------------|
         public ObservableDictionary<Product, int> ListCart { get; set; }
+        public ObservableCollection<Sales> ProductSold { get; set; }
 
 
         //|------------CONSTRUCTOR------------|
         public Cart()
         {
-            productDao = new ProductDao();
-            salesDao = new SalesDao();
-            this.stockDao = new StockDao();
+            ProductDao = new ProductDao();
+            SalesDao = new SalesDao();
+            this.StockDao = new StockDao();
             this.ListCart = new ObservableDictionary<Product, int>();
+            this.ProductSold = new ObservableCollection<Sales>();
         }
 
         //|-------------METHODS--------------|
 
         public IEnumerable<Product> GetProducts()
         {
-            return this.productDao.GetProducts();
+            return this.ProductDao.GetProducts();
         }
         /// <summary>       
         /// Adds the product and quantity to the cart. If the product already exists, it is removed and added to the updated value.
@@ -41,19 +45,30 @@ namespace StockControl.Model.Model
         /// /// <param name="quantity"> Parameter quantity requires an 'int' argument</param>        
         public void ReceiveProduct(Product product, int quantity)
         {
-            if (ListCart.ContainsKey(product))
-            {               
-                KeyValuePair<Product, int> productOld = ListCart.Where(d => d.Key.Name.Equals(product.Name)).FirstOrDefault();
-                int total = productOld.Value + quantity;
-                ListCart.Remove(productOld);
-                ListCart.Add(productOld.Key, total);
-            }
+            int quantityInStock = StockDao.GetQuantityOfAProduct(product.ProductId);
 
+            KeyValuePair<Product, int> productOld = ListCart.Where(d => d.Key.Name.Equals(product.Name)).FirstOrDefault();
+            int quantityTotal = productOld.Value + quantity;
+
+            if (quantityInStock >= quantityTotal)
+            {
+                if (ListCart.ContainsKey(product))
+                {
+                    ListCart.Remove(productOld);
+                    ListCart.Add(productOld.Key, quantityTotal);
+
+                }
+                else
+                {
+                    ListCart.Add(product, quantity);
+                }
+
+            }
             else
             {
-                ListCart.Add(product, quantity);                
+                MessageBox.Show("Quantidade superior a do produto presente no estoque - Quantidade : " + quantityInStock);
             }
-       
+
         }
 
         /// <summary>
@@ -62,6 +77,13 @@ namespace StockControl.Model.Model
         public void ShowProductsPurchased()
         {
             //TODO: criar tela com as compras realizadas
+            this.ProductSold.Clear();
+            IEnumerable<Sales> productsSold = SalesDao.GetProductsSold();
+
+            foreach(Sales s in productsSold)
+            {
+                this.ProductSold.Add(s);
+            }
             
         }
 
@@ -90,12 +112,15 @@ namespace StockControl.Model.Model
         {                                
             Sales sales = new Sales();
             sales.ProductsSold = this.ListCart;
-            this.salesDao.InsertOrUpdate(sales);
+            this.SalesDao.Insert(sales);
 
             foreach(KeyValuePair<Product,int> p in sales.ProductsSold)
             {
-                this.stockDao.Update(new Stock(p.Key,p.Value));
+                this.StockDao.Update(new Stock(p.Key,p.Value));
             }
+
+            MessageBox.Show("Produto(s) comprado(s) com sucesso!");
+            this.ShowProductsPurchased();
             
         }      
     }

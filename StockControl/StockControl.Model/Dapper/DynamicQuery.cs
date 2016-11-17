@@ -47,6 +47,18 @@ namespace StockControl.Model.Dao
 
             return string.Format("UPDATE {0} SET {1} WHERE " + tableName + "Id=@" + tableName + "Id", tableName, string.Join(",", parameters));
         }
+        private static string GetPropertyName(BinaryExpression body)
+        {
+            string propertyName = body.Left.ToString().Split(new char[] { '.' })[1];
+
+            if (body.Left.NodeType == ExpressionType.Convert)
+            {
+                // hack to remove the trailing ) when convering.
+                propertyName = propertyName.Replace(")", string.Empty);
+            }
+
+            return propertyName;
+        }
 
 
         /// <summary>
@@ -107,7 +119,7 @@ namespace StockControl.Model.Dao
                 string opr = GetOperator(body.NodeType);
                 string link = GetOperator(linkingType);
 
-                queryProperties.Add(new QueryParameter(link, propertyName, propertyValue.Value, opr));
+                queryProperties.Add(new QueryParameter(link, propertyName, GetValue(propertyValue), opr));
             }
             else
             {
@@ -121,17 +133,33 @@ namespace StockControl.Model.Dao
         /// </summary>
         /// <param name="body">The body.</param>
         /// <returns>The property name for the property expression.</returns>
-        private static string GetPropertyName(BinaryExpression body)
+        //private static string GetPropertyName(BinaryExpression body)
+        //{
+        //    string propertyName = body.Left.ToString().Split(new char[] { '.' })[1];
+
+        //    if (body.Left.NodeType == ExpressionType.Convert)
+        //    {
+        //        // hack to remove the trailing ) when convering.
+        //        propertyName = propertyName.Replace(")", string.Empty);
+        //    }
+
+        //    return propertyName;
+        //}
+
+        private static object GetValue(dynamic propertyValue)
         {
-            string propertyName = body.Left.ToString().Split(new char[] { '.' })[1];
-
-            if (body.Left.NodeType == ExpressionType.Convert)
+            if (propertyValue.NodeType != System.Linq.Expressions.ExpressionType.Constant)
             {
-                // hack to remove the trailing ) when convering.
-                propertyName = propertyName.Replace(")", string.Empty);
-            }
+                MemberExpression member = (MemberExpression)propertyValue;
+                var objectMember = Expression.Convert(member, typeof(object));
 
-            return propertyName;
+                var getterLambda = Expression.Lambda<Func<object>>(objectMember);
+
+                var getter = getterLambda.Compile();
+
+                return getter();
+            }
+            return propertyValue.Value;
         }
 
         /// <summary>

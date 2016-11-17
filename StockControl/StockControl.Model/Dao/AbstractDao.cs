@@ -60,6 +60,7 @@ namespace StockControl.Model.Dao
             Connection.Open();
             return Connection.Query<T>("SELECT * FROM " + tableName);
         }
+        
         /// <summary>
         /// Finds by First or Default.
         /// </summary>
@@ -69,7 +70,7 @@ namespace StockControl.Model.Dao
             T item = default(T);
 
             Connection.Open();
-            item = Connection.Query<T>("SELECT * FROM " + tableName + " WHERE " + tableName + "Id="+ id.ToString()).SingleOrDefault();
+            item = Connection.Query<T>("SELECT * FROM " + tableName + " WHERE " + tableName + "Id=" + id.ToString()).SingleOrDefault();         
 
             return item;
         }

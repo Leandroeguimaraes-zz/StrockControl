@@ -4,16 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace StockControl.Model.Dao
 {
     public class StockDao : AbstractDao<Stock>
-    {
-        private Stock stock;
+    {        
+        public Stock Stock { get; set; }
 
         public StockDao()
         {
-            this.stock = GetFirstOrDefault();
+            this.Stock = GetFirstOrDefault();
         }
 
         /// <summary>
@@ -26,22 +27,53 @@ namespace StockControl.Model.Dao
         {
             return new
             {
-                ProductId = item.Product.ProductId,
-                ProductName = item.Product.Name,
-                Quantity = item.Quantity
+                ProductId = item.ProductId,
+                Name = GetProduct(item.ProductId).Name,
+                Quantity = item.Quantity,
+                StockId = item.StockId
             };
         }
+
+        private Product GetProduct(int ProdutoId)
+        {
+            ProductDao produtc = new ProductDao();
+            return produtc.FindById(ProdutoId);
+        }
+
+        public int GetQuantityOfAProduct(int id)
+        {
+            Stock product = this.FindById(id);
+            return product.Quantity;
+        }
+
         public void Update(Stock product)
         {
-            Stock productUpdated = this.SubstractsQuantityOfAProduct(product);
+            try
+            {
+                Stock productUpdated = this.SubstractsQuantityOfAProduct(product);
 
-            Modify(productUpdated);
+                Modify(productUpdated);
+            }
+            catch (Exception)
+            {
+
+                throw new System.ArgumentException("Quantidade do produto não foi atualizado no stock");
+            }
+           
         }
 
         private Stock SubstractsQuantityOfAProduct(Stock product)
         {
-            Stock productFromStock = FindById(product.StockId);
-            productFromStock.Quantity -= product.Quantity;
+            Stock productFromStock = Find(d => d.ProductId == product.Product.ProductId).FirstOrDefault();
+            
+            if(productFromStock != null && productFromStock.Quantity >= product.Quantity)
+            {
+                productFromStock.Quantity -= product.Quantity;
+            }
+            else
+            {
+                MessageBox.Show(" Produto em falta no estoque");
+            }
 
             return productFromStock;
         }

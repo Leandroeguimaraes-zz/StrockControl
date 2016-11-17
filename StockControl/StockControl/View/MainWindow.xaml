@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StockControl"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450.106" Width="519.068">
+        Title="MainWindow" Height="618.896" Width="504.764">
     <Grid Margin="0,47,0,0">
         <GroupBox x:Name="groupBox" Header="Choose a Product" HorizontalAlignment="Left" Margin="16,17,0,0" VerticalAlignment="Top" Height="225" Width="206"/>
         <GroupBox x:Name="groupBox1" Header="Cart&#xD;&#xA;" HorizontalAlignment="Left" Margin="239,10,0,0" VerticalAlignment="Top" Height="232" Width="241">
@@ -15,7 +15,7 @@
                         <TextBlock Margin="20,0,0,0" Text="{Binding}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-                
+
             </ListBox>
         </GroupBox>
         <GroupBox x:Name="groupBox2" Header="Buy Product" HorizontalAlignment="Left" Margin="16,247,0,0" VerticalAlignment="Top" Height="62" Width="464"/>
@@ -26,11 +26,21 @@
         <Button x:Name="uxBtnDelete" Content="Delete" Command="{Binding Path=DeleteProductCommand}" HorizontalAlignment="Left" Margin="366,208,0,0" VerticalAlignment="Top" Width="101" Height="27"/>
         <Button x:Name="uxBtnClear" Content="Clear" Command ="{Binding Path=ClearCommand}" HorizontalAlignment="Left" Margin="257,208,0,0" VerticalAlignment="Top" Width="104" Height="27"/>
         <Button x:Name="uxBtnBuyProducts" Content="Buy Products" Command="{Binding Path=BuyCommand}" HorizontalAlignment="Left" Margin="33,269,0,0" VerticalAlignment="Top" Width="434" RenderTransformOrigin="0.431,1.254" Height="30"/>
-        <Button x:Name="uxBtnViewList" Content="View List" Command="{Binding Path=ViewListCommand}" HorizontalAlignment="Left" Margin="26,208,0,0" VerticalAlignment="Top" Width="96" Height="27"/>
-        <Button x:Name="uxBtnSendToCart" Command="{Binding Path=SendToCartCommand}" Content="Send to cart" HorizontalAlignment="Left" Margin="127,208,0,0" VerticalAlignment="Top" Width="85" Height="27"/>
+        <Button x:Name="uxBtnViewList" Content="View List" Command="{Binding Path=ViewListCommand}" HorizontalAlignment="Left" Margin="33,488,0,0" VerticalAlignment="Top" Width="434" Height="32"/>
+        <Button x:Name="uxBtnSendToCart" Command="{Binding Path=SendToCartCommand}" Content="Send to cart" HorizontalAlignment="Left" Margin="33,208,0,0" VerticalAlignment="Top" Width="171" Height="27"/>
         <Label x:Name="label"  Content="{Binding Path=Product.Name}" HorizontalAlignment="Left" Margin="33,164,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1" HorizontalAlignment="Left" Margin="95,341,0,0" VerticalAlignment="Top"/>
-       
+        <GroupBox x:Name="groupBox3" Header="Products Sold" HorizontalAlignment="Left" Margin="19,314,0,0" VerticalAlignment="Top" Height="217" Width="461">
+            <ListView x:Name="listView"  ItemsSource="{Binding ProductsSold}" HorizontalAlignment="Left" Height="137" Margin="10,10,0,0" VerticalAlignment="Top" Width="432">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Quantity" Width="120" DisplayMemberBinding="{Binding Quantity}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
+
     </Grid>
-    
+
 </Window>

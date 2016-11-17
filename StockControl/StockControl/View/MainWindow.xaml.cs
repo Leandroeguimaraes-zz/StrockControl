@@ -29,25 +29,12 @@ namespace StockControl
 
             this.DataContext = new ProductViewModel();
                       
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-
-            //this.initialize();
-            
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;                       
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             
         }
-        private void initialize()
-        {
-            this.uxCbbxProduct.Items.Add(new Product("Product1", 20));
-            this.uxCbbxProduct.Items.Add(new Product("Product2", 30));
-            this.uxCbbxProduct.Items.Add(new Product("Product3", 40));
-            this.uxCbbxProduct.Items.Add(new Product("Product4", 50));
-         
-        }
-
-
     }
 }
