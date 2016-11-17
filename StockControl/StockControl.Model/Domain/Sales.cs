@@ -9,6 +9,7 @@ namespace StockControl.Model.Domain
 {
     public class Sales
     {
+        public int ProductId { get; set; }
         public int SalesId { get; set; }
         public ObservableDictionary<Product,int> ProductsSold { get; set; }
 
@@ -16,6 +17,8 @@ namespace StockControl.Model.Domain
         public string Name { get; set; }
 
         public int Quantity { get; set; }
+      
+        
     }
 
 

@@ -19,10 +19,13 @@ namespace StockControl.Model.Dao
         {
             return new
             {
-               
-                ProductId = item.ProductsSold.Keys.FirstOrDefault().ProductId,
-                Name = item.ProductsSold.Keys.FirstOrDefault().Name,
-                Quantity = item.ProductsSold.Values.FirstOrDefault()
+
+                //ProductId = item.ProductsSold.Keys.FirstOrDefault().ProductId,
+                //Name = item.ProductsSold.Keys.FirstOrDefault().Name,
+                //Quantity = item.ProductsSold.Values.FirstOrDefault()
+                ProductId = item.ProductId,
+                Name = item.Name,
+                Quantity = item.Quantity
             };
         }
         /// <summary>
@@ -35,7 +38,13 @@ namespace StockControl.Model.Dao
             {
                 foreach (KeyValuePair<Product, int> p in product.ProductsSold)
                 {
-                    Add(product);
+                    Sales sales = new Sales();
+
+                    sales.ProductId = p.Key.ProductId;
+                    sales.Name = p.Key.Name;
+                    sales.Quantity = p.Value;
+
+                    Add(sales);                                        
                 }
             }
             catch (Exception ex)
